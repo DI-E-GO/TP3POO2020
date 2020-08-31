@@ -12,7 +12,7 @@ public class Empleado {
 	private int antiguedad;
 	
 	/**
-	 * Costructor por defecto de Empleado
+	 * Costructor por defecto de Empleado (sin parametros)
 	 */
 	public Empleado() {
 		// TODO Auto-generated constructor stub
@@ -88,7 +88,7 @@ public class Empleado {
 	public String toString() {
 		return "Legajo=" + String.format("%011d",legajo) + "- Dni=" + dni + " - Nombre=" + nombre + " - Fecha de Ingreso="
 				+ String.format("%02d",fechaIngreso.getDayOfMonth())+"/"+String.format("%02d",fechaIngreso.getMonthValue())+"/"+fechaIngreso.getYear() + 
-				" - Salario=" + salario + " - Antiguedad=" + antiguedad+ " años";
+				" - Salario=" + (int)salario + " - Antiguedad=" + antiguedad+ " años";
 	}	
 	
 	
