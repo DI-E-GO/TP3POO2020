@@ -7,28 +7,27 @@ import java.util.List;
 import ar.edu.unju.fi.poo.domain.Empleado;
 
 /**
- * La clase permite gestionar todos los objetos de tipo <strong>Empleado</strong>
- * @author Diego
+ * La clase permite gestionar todos los objetos de tipo Empleado
+ * @author Diego Rios
  *
  */
 public class EmpleadoManager {
 	/**
 	 * Creacion de Arrays que continenen datos de tipo Empleado
 	 */
-	public static List<Empleado> listaEmpleados = new ArrayList<Empleado>();
-	public static List<Empleado> nuevaListaEmpleados = new ArrayList<Empleado>();
-	
+	//Punto 1 del Trabajo Practico crear una lista de N Empleados
+	private static List<Empleado> listaEmpleados = new ArrayList<Empleado>();
+	//Punto 5.1 del Trabajo Practico crear otra lista vacia de Empleados
+	private static List<Empleado> nuevaListaEmpleados = new ArrayList<Empleado>();
 	/**
-	 * Carga una lista de Tipo Empleado
+	 * Carga una lista de Tipo Empleado, 5 Empleados
 	 */
 	public static void generarEmpleados() {
-		LocalDate fechaActual = LocalDate.now();
-		listaEmpleados.add(new Empleado(1, 100, "11111111", "Pedro", LocalDate.of(2000, 10, 2), 29000, fechaActual.getYear()-2000));
-		listaEmpleados.add(new Empleado(2, 101, "22222222", "Jose", LocalDate.of(2001, 8, 10), 31000, fechaActual.getYear()-2001));
-		listaEmpleados.add(new Empleado(3, 102, "33333333", "Leopoldo", LocalDate.of(1995, 10, 2), 45000, fechaActual.getYear()-1995));
-		listaEmpleados.add(new Empleado(4, 103, "44444444", "Homero", LocalDate.of(2007, 10, 2), 22000, fechaActual.getYear()-2007));
-		listaEmpleados.add(new Empleado(5, 104, "55555555", "Pedro", LocalDate.of(2002, 10, 2), 25000, fechaActual.getYear()-2002));
-
+		listaEmpleados.add(new Empleado(100, "11111111", "Pedro", LocalDate.of(2000, 11, 21), 29000));
+		listaEmpleados.add(new Empleado(101, "22222222", "Jose", LocalDate.of(2001, 8, 10), 31000));
+		listaEmpleados.add(new Empleado(102, "33333333", "Leopoldo", LocalDate.of(1995, 10, 2), 45000));
+		listaEmpleados.add(new Empleado(103, "44444444", "Homero", LocalDate.of(2007, 10, 2), 22000));
+		listaEmpleados.add(new Empleado(104, "55555555", "Pedro", LocalDate.of(2002, 10, 2), 25000));
 	}
 	/**
 	 * Muestra las listas de Empleados Creadas
@@ -40,7 +39,7 @@ public class EmpleadoManager {
 	}
 	
 	/**
-	 * Método de búsqueda de un <strong>Empleado</strong> por medio de su nombre
+	 * Método de búsqueda de un Empleado por medio de su nombre
 	 * y mestra el promedio de los salarios de los empleados encontrados
 	 * @param nombreEmpleado
 	 */
@@ -50,16 +49,16 @@ public class EmpleadoManager {
 		if(nombreEmpleado.isEmpty()) {
 			mostrarEmpleados(listaEmpleados);
 		}else {
-			System.out.println("Resultado de la busqueda:");
+			System.out.println("\nResultado de la busqueda por nombre:\n");
 			for (Empleado empleado : listaEmpleados) {
-				if(nombreEmpleado.equals(empleado.getNombre())) {
+				if(empleado.getNombre().contains(nombreEmpleado)) {
 					contadorEmpleados++;
 					sumaTotalSalarios+=empleado.getSalario();
 					System.out.println(empleado);
 				}
 			}
 		}if(contadorEmpleados>0) {
-			System.out.println("Promedio de el/los Salarios es de: "+ sumaTotalSalarios/(float)contadorEmpleados+ " pesos");
+			System.out.println("Promedio de la suma de los Salarios es de: "+ sumaTotalSalarios/(float)contadorEmpleados+ " pesos");
 		}else {
 			System.out.println("No se encontro ningun Empleado con el dato: "+ nombreEmpleado);
 		}
@@ -72,7 +71,7 @@ public class EmpleadoManager {
 	 */
 	public static void mostrarPorAntiguedad(int anios) {
 		float salarioAcumulado=0;
-		System.out.println("Resultados de la busqueda");
+		System.out.println("\nResultados de la busqueda por años de antiguedad:\n");
 		for (Empleado empleado : listaEmpleados) {
 			if(empleado.getAntiguedad()>anios) {
 				System.out.println(empleado);
@@ -91,7 +90,7 @@ public class EmpleadoManager {
 	 * @param dniEmpleado
 	 */
 	public static void quitarEmpleado(String dniEmpleado) {
-		int index=0, indexBorrar=0;
+		int index=0, indexBorrar=-1;
 		for (Empleado empleado : listaEmpleados) {
 			if(dniEmpleado.equals(empleado.getDni())) {
 				System.out.println(empleado);
@@ -100,7 +99,19 @@ public class EmpleadoManager {
 			}
 			index++;
 		}
+		if(indexBorrar!=-1)
 		listaEmpleados.remove(indexBorrar);
+	}
+	
+	public static void mostrarTodaListas() {
+		System.out.println("\n++++++++++++++++ Es la primera lista de Empleados +++++++++++++++\n");
+		mostrarEmpleados(listaEmpleados);
+		if(nuevaListaEmpleados.isEmpty()) {
+			System.out.println("\n++++++++++++++++ Segunda lista de Empleados vacia +++++++++++++++\n");
+		}else {
+			System.out.println("\n++++++++++++++++ Es la segunda lista de Empleados ++++++++++++++++\n");
+			mostrarEmpleados(nuevaListaEmpleados);
+		}	
 	}
 }
 

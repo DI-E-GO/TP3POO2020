@@ -10,6 +10,8 @@ public class Empleado {
 	private LocalDate fechaIngreso;
 	private float salario;
 	private int antiguedad;
+	//variable para que se incremente automaticamente al crear un Empleado su ID correspondiente
+	private static int empleadoId=0;
 	
 	/**
 	 * Costructor por defecto de Empleado (sin parametros)
@@ -38,7 +40,27 @@ public class Empleado {
 		this.salario = salario;
 		this.antiguedad = antiguedad;
 	}
-
+	
+	/**
+	 * Constructor parametrizado con algunos atributos de la clase Empleado, genera id y antiguedad de un empleado automaticamente
+	 * @param legajo
+	 * @param dni
+	 * @param nombre
+	 * @param fechaIngreso
+	 * @param salario
+	 */
+	public Empleado(int legajo, String dni, String nombre, LocalDate fechaIngreso, float salario) {
+		super();
+		LocalDate fechaActual = LocalDate.now();
+		empleadoId++;
+		this.id = empleadoId;
+		this.legajo = legajo;
+		this.dni = dni;
+		this.nombre = nombre;
+		this.fechaIngreso = fechaIngreso;
+		this.salario = salario;
+		this.antiguedad = fechaActual.getYear()-fechaIngreso.getYear();
+	}
 
 	//Metodos Accesores
 	public Integer getId() {
@@ -83,7 +105,8 @@ public class Empleado {
 	public void setAntiguedad(int antiguedad) {
 		this.antiguedad = antiguedad;
 	}
-
+	
+	//Punto 2 de Trabajo Practio sobreescribir el método toString para obtener el formato solicitado
 	@Override
 	public String toString() {
 		return "Legajo=" + String.format("%011d",legajo) + "- Dni=" + dni + " - Nombre=" + nombre + " - Fecha de Ingreso="
